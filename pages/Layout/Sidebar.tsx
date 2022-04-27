@@ -11,59 +11,74 @@ import {
   Divider,
   Icon,
   Select,
+  Stack,
+  Input,
 } from "@chakra-ui/react";
 import { UseSize } from "../../Hooks/UseSize";
+import { FaFacebookF } from "react-icons/fa";
+import { BsInstagram } from "react-icons/bs";
+import { RiKakaoTalkLine } from "react-icons/ri";
+import { SiNaver } from "react-icons/si";
 
-import { FaLanguage } from "react-icons/fa";
+const icons = [FaFacebookF, BsInstagram, RiKakaoTalkLine];
+
 import { useState } from "react";
-
+const sideData = [
+  "Гэр ахуй",
+  "Эмэгтэй хувцас",
+  "Эрэгтэй хувцас",
+  "Спорт бараа",
+  "Хүнсний бүтээгдэхүүн",
+  "Гоо сайхан",
+  "Үнэт эдлэл",
+  "Хүүхдийн тоглоом",
+  "Бичиг хэрэг",
+  "Электорон бараа",
+  "Гар утас ",
+  "Бөс бараа",
+];
 interface Sidebar {
   isOpen: boolean;
   onClose: () => void;
 }
 
 export const Sidebar = ({ isOpen, onClose }: Sidebar) => {
-  const [reverse, setReverse] = useState(false);
-  const size = UseSize("drawer");
+  // const size = UseSize("drawer");
 
   const props = {
     isOpen,
     onClose,
   };
 
-  const onLogin = () => {
-    onClose();
-  };
-
   return (
-    <Drawer {...props} size={size}>
-      {/* <DrawerOverlay /> */}
+    <Drawer {...props}>
       <DrawerContent>
         <DrawerHeader>
           <DrawerCloseButton />
         </DrawerHeader>
         <DrawerBody pt={3} zIndex="12">
-          <VStack w="100%" h="100%">
-            <HStack
-              w="100%"
-              p="8px"
-              _hover={{ opacity: 1 }}
-              opacity={0.8}
-              cursor={"pointer"}
-              justifyContent="space-between"
-            >
-              <HStack pl="6px">
-                <Icon as={FaLanguage} mr={3} />
-              </HStack>
-              <Select maxW="100px">
-                <option value="mn">MN</option>
-                <option value="en">EN</option>
-              </Select>
+          <Stack w="100%" h="100%">
+            <Input
+              type="search"
+              placeholder="Дэлгүүр, бүтээгдэхүүний нэр..."
+              bg="white"
+            />
+            {sideData.map((el) => {
+              return (
+                <>
+                  <Text>{el}</Text>
+                  <Divider />
+                </>
+              );
+            })}
+            <HStack justifyContent="center" spacing={4} pt={10}>
+              {icons.map((el) => {
+                return (
+                  <Icon cursor="pointer" color="gray" fontSize="2xl" as={el} />
+                );
+              })}
             </HStack>
-            <HStack w="100%" py="12px" justifyContent="space-between"></HStack>
-            <HStack w="100%" justifyContent="flex-start" pt="3"></HStack>
-            <Spacer />
-          </VStack>
+          </Stack>
         </DrawerBody>
       </DrawerContent>
     </Drawer>

@@ -8,92 +8,51 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { Container } from "../../Theme/common";
-import { FaFacebookF } from "react-icons/fa";
-import { BsInstagram } from "react-icons/bs";
-import { RiKakaoTalkLine } from "react-icons/ri";
-import { SiNaver } from "react-icons/si";
-import { BiPhoneCall, BiMailSend } from "react-icons/bi";
-import { SiGooglemaps } from "react-icons/si";
-const icons = [FaFacebookF, BsInstagram, RiKakaoTalkLine, SiNaver];
-const support = ["Contact Us", "About Us", "Travel Guide "];
+import { BsFillSuitHeartFill } from "react-icons/bs";
+import { AiOutlineHome } from "react-icons/ai";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import Link from "next/link";
+import { useRouter } from "next/router";
+const icons = [
+  { title: "Нүүр", icon: AiOutlineHome, link: "/" },
+  {
+    title: "Хадгалсан бараа",
+    icon: BsFillSuitHeartFill,
+    link: "/saved_product",
+  },
+  { title: "Захиалга", icon: MdOutlineShoppingCart, link: "/order" },
+];
+
 export const Footer = () => {
+  const router = useRouter();
   return (
     <>
-      <Stack pt="100px" pb={10} bg="#262339">
+      <Stack zIndex="10" pos="fixed" bottom="0" w="100%" py="10px" bg="white">
         <SimpleGrid
+          mx="auto"
           color="white"
           flexDir="column"
           w="100%"
-          h="100%"
-          maxW={Container}
-          my={["10px", "40px"]}
-          px={["15px", "15px", "40px", "", "20px"]}
-          mx="auto"
-          columns={[1, 2, 3]}
-          spacing={10}
+          columns={[3, 3, 3]}
         >
-          <Stack spacing={10}>
-            <Text fontSize="2xl">Bodi Tour</Text>
-            <Text>
-              Бид үйл ажиллагаагаа 7-н жилийн турш <br /> тасралтгүй явуулж
-              байгаа бөгөөд таны <br /> тав тухтай аялуулхыг зорино
-            </Text>
-            <Text fontSize="2xl">Follow Us:</Text>
-            <HStack spacing={5}>
-              {icons.map((el) => {
-                return (
-                  <Icon
-                    cursor="pointer"
-                    color="#ff7f47"
-                    fontSize="2xl"
-                    as={el}
-                  />
-                );
-              })}
-            </HStack>
-          </Stack>
-          <Stack spacing={10}>
-            <Text fontSize="2xl">Contact Us</Text>
-            <HStack spacing={5}>
-              <Icon fontSize="3xl" color="#ff7f47" as={BiPhoneCall} />
-              <Stack>
-                <Text>+97680008544</Text>
-                <Text>+97680008544</Text>
-              </Stack>
-            </HStack>
-            <HStack spacing={5}>
-              <Icon fontSize="3xl" color="#ff7f47" as={BiMailSend} />
-              <Stack>
-                <Text>boditour@gmail.com</Text>
-                <Text>temvkaa@gmail.com</Text>
-              </Stack>
-            </HStack>
-            <HStack spacing={5}>
-              <Icon fontSize="3xl" color="#ff7f47" as={SiGooglemaps} />
-              <Stack>
-                <Text>Ulaanbaat, Mongolia</Text>
-              </Stack>
-            </HStack>
-          </Stack>
-          <Stack spacing={10}>
-            <Text fontSize="2xl">Support</Text>
-            {support.map((el) => {
-              return <Text cursor="pointer">{el}</Text>;
-            })}
-          </Stack>
+          {icons.map((el: any, ind: number) => {
+            return (
+              <>
+                <Link href={el.link}>
+                  <Stack
+                    key={ind}
+                    justifyContent="center"
+                    alignItems="center"
+                    color={router.pathname === el.link ? "green" : "gray"}
+                  >
+                    <Icon fontSize="xl" as={el.icon} />
+                    <Text fontSize="10px">{el.title}</Text>
+                  </Stack>
+                </Link>
+              </>
+            );
+          })}
         </SimpleGrid>
-        <Divider />
-        <HStack justifyContent="center">
-          <Text color="white" textAlign="center">
-            Copyright 2022
-          </Text>
-          <Text color="#ff7f47">Bodi Tour</Text>
-          <Text color="white" textAlign="center">
-            | Designed By
-          </Text>
-          <Text color="#ff7f47"> 0xTeMk4</Text>
-        </HStack>
       </Stack>
     </>
   );

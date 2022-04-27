@@ -4,7 +4,7 @@ const styles: Styles = {
 	global: (props: any) => ({
 		body: {
 			fontFamily: "Quicksand,sans-serif",
-			bg: mode("gray.200", "gray.800")(props),
+			bg: mode("gray.50", "gray.800")(props),
 		},
 	}),
 };
